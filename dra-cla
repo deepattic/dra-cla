@@ -78,7 +78,7 @@ download () {
 case $2 in
 	*m3u8*)
 		# ffmpeg -loglevel error -stats -referer "$1" -i "$2" -c copy "$download_dir/${3}${4}.mp4" ;;
-		yt-dlp -N 500 "$2" -P "${3}${4}.mp4" ;;
+		yt-dlp -N 500 "$2" -P ./downloads -o "${3}${4}.mp4" ;;
 	*)
 		aria2c --summary-interval=0 -x 16 -s 16 --referer="$1" "$2" --dir="$download_dir" -o "${3}${4}.mp4" --download-result=hide ;;
 esac
@@ -458,7 +458,7 @@ dep_ch "curl" "sed" "grep" "openssl"
 if [ "$is_download" -eq 0 ]; then
 	dep_ch "$player_fn"
 else
-	dep_ch "aria2c" "yt-dlp"
+	dep_ch "aria2c" "yt-dlp" "ffmpeg"
 fi
 
 # Get the current working URL
